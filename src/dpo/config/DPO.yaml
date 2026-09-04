@@ -1,0 +1,56 @@
+common:
+    seed: 42
+
+data:
+    train_csv: datasets/DPO/dpo_data_imgt.csv
+    val_csv: null
+    val_split: 0.05
+    min_score_diff: 0.2
+    top_k: 2
+    loss_type: paired
+    max_length: 1024
+    summary_path: datasets/SFT/summary/sabdab_summary_all.tsv
+    imgt_dir: datasets/SFT/imgt
+    processed_dir: datasets/SFT/imgt_processed_iggm
+    antigen_feature_path: null
+    antigen_feature_id_key: pdbid
+    num_workers: 4
+    pin_memory: true
+
+model:
+    model_path: null
+    ref_model_device: same
+    strict_load: true
+
+tokens:
+    mask_token_id: 32
+    pad_token_id: 1
+    chain_token_id: 31
+
+training:
+    lr: 0.00005
+    batch_size: 1
+    epochs: 10
+    accumulation_steps: 32
+    max_grad_norm: 1.0
+    beta: 0.1
+    mixed_precision: bf16
+    normalize_logps: true
+    warmup_ratio: 0.1
+
+eval:
+    eval_every_steps: 0
+    every_save_steps: 40000
+    output_dir: null
+    metric_for_best: val/loss
+    greater_is_better: false
+
+wandb:
+    wandb_enabled: true
+    wandb_project: cdr_ranked_dpo
+    log_every_steps: 50
+
+checkpoint:
+    save_epochs: true
+    resume_from: null
+    auto_resume: true

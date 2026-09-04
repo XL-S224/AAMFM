@@ -1,0 +1,81 @@
+common:
+    seed: 42
+
+data:
+    dataset: sabdab_imgt
+    max_length: 1024
+    summary_path: datasets/SFT/summary/sabdab_summary_all.tsv
+    imgt_dir: datasets/SFT/imgt
+    processed_dir: datasets/SFT/imgt_processed_iggm
+    init: false
+    train_split: train
+    val_split: test
+    batch_size: 4
+    num_workers: 0
+    antigen_feature_path: null
+    antigen_feature_id_key: pdbid
+
+model:
+    model_path: null
+    freeze_output_heads: true
+    adapter_module: null
+    adapter_wrapper: null
+    adapter_freeze_fn: null
+    adapter_state_path: null
+    adapter_param_keyword: adapter
+
+tokens:
+    mask_token_id: 32
+    pad_token_id: 1
+    chain_token_id: 31
+    structure_mask_id: 4096
+    structure_special_tokens:
+        - 4096
+        - 4097
+        - 4098
+        - 4099
+        - 4100
+
+masking:
+    strategy: mixed
+    mixed_weights:
+        - 0.25
+        - 0.35
+        - 0.4
+    random_mask_prob: null
+    random_beta:
+        - 3.0
+        - 9.0
+    single_cdr_index: null
+    random_single_cdr_prob: 0.25
+    mask_structure: true
+
+training:
+    mode: imgt
+    epochs: 200
+    accumulation_steps: 4
+    lr: 0.0001
+    weight_decay: 0.01
+    betas: [0.9, 0.95]
+    mixed_precision: bf16
+    max_grad_norm: 1.0
+    scheduler: linear
+    warmup_ratio: 0.05
+    unfreeze_epoch: 30
+    backbone_lr: 0.00004
+    adapter_lr: 0.00006
+    use_structure_loss: true
+    structure_loss_weight: 1.0
+
+eval:
+    eval_every_steps: 50
+    every_save_steps: 300
+    output_dir: outputs/sft
+    eval_strategy: null
+
+wandb:
+    wandb_enabled: true
+    wandb_project: antibody-design
+    wandb_name: SFT-run
+    wandb_entity: null
+    wandb_dir: logdir

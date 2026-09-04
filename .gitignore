@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Environments
+.venv/
+venv/
+.env
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+*.docx
+.worktrees/
+
+# Data, models, outputs
+# Keep user-provided training data, model weights, and executables local.
+# RAbD metadata and native PDBs are versioned; the large antigen-feature cache
+# is distributed externally.
+datasets/*
+!datasets/eval/
+datasets/eval/*
+!datasets/eval/rabd/
+model/
+logdir/
+logs/
+*.npz
+*.pt
+*.pdb
+*.tar.gz
+tools/USalign
+
+# Version RAbD benchmark metadata and PDBs; the large antigen-feature cache is
+# externally hosted.
+!datasets/eval/rabd/**
+datasets/eval/rabd/.DS_Store
+datasets/eval/rabd/gearnet_node_features.pt

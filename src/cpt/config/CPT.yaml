@@ -1,0 +1,47 @@
+data:
+    npz_paths:
+        - datasets/CPT/cluster/exports/c95_t70_T1/merged_c95_t70_cdr3_60/cpt_train_struct.npz
+        # - datasets/CPT/igfold_processed_small/processed_wnoise_new.npz
+        # - datasets/CPT/igfold_processed/processed_wnoise_new.npz
+        # - datasets/CPT/abb2_processed/processed_wnoise_new.npz
+
+    npz_paths_eval:
+        - datasets/CPT/cluster/exports/c95_t70_T1/merged_c95_t70_cdr3_60/cpt_val_struct.npz
+
+    npz_key: data
+    batch_size: 8
+    num_workers: 0
+    train_ratio: 0.95
+
+model:
+    model_name: null
+    model_path: null
+
+common:
+    seed: 42
+
+training:
+    epochs: 2
+    accumulation_steps: 16
+    lr_max: 0.00001
+    lr_min: 0.000001
+    weight_decay: 0.01
+    scheduler_epochs: 2
+    warmup_steps: 0
+    warmup_radio: 0.03
+    decay_steps: 0
+    decay_ratio: 0.2
+    betas: [0.9, 0.95]
+    mixed_precision: bf16
+
+eval:
+    eval_every_steps: 800
+    every_save_steps: 3200
+    output_dir: outputs/cpt
+
+wandb:
+    wandb_enabled: true
+    wandb_project: antibody-design
+    wandb_name: CPT-run
+    wandb_entity: null
+    wandb_dir: logdir
