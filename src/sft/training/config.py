@@ -81,7 +81,6 @@ def _normalize_masking_section(raw: Dict[str, Any]) -> Dict[str, Any]:
 
 @dataclass
 class DataConfig:
-    dataset: str = "sabdab_imgt"
     max_length: int = 1024
     summary_path: Optional[str] = None
     imgt_dir: Optional[str] = None

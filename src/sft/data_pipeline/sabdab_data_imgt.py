@@ -42,17 +42,6 @@ from accelerate import Accelerator
 from torch import nn, optim
 
 
-# FIX(SFT-7): Keep the formerly inline absolute placeholder visible and editable.
-SABDAB_ANTIGEN_OUTPUT_DIR = None
-
-
-def _antigen_output_path(entry_id):
-    if SABDAB_ANTIGEN_OUTPUT_DIR is None:
-        raise ValueError("SABDAB_ANTIGEN_OUTPUT_DIR must be configured explicitly.")
-    return os.path.join(SABDAB_ANTIGEN_OUTPUT_DIR, f"{entry_id}.pdb")
-
-
-
 ALLOWED_AG_TYPES = {
     'protein',
     'protein | protein',
@@ -389,26 +378,6 @@ def cut_antibody(task):
     except Exception as e:
         logging.error(f"PDB: {pdb_code} - unexpected error while processing {pdb_path}: {str(e)}")
         raise e
-
-
-def extract_antigen(task):
-    pdb_path = task['pdb_path']
-    entry = task['entry']
-    antigen_ids = entry['ag_chains']
-    pdb = Bio.PDB.PDBParser(QUIET=True).get_structure('pdb', pdb_path)[0]
-    antigen_chains = []
-    new_structure = Bio.PDB.Structure.Structure('antigen')
-    model = Bio.PDB.Model.Model(0)
-    new_structure.add(model)
-    for antigen_id in antigen_ids:
-        model.add(pdb[antigen_id])
-    ag_ids = '_'.join(antigen_ids)
-    # FIX(SFT-7): Resolve through the editable directory declared at file top.
-    pdb_path_antigen = _antigen_output_path(entry['id'])
-    io = Bio.PDB.PDBIO()
-    io.set_structure(new_structure)
-    io.save(pdb_path_antigen)
-    return pdb_path_antigen
 
 
 import enum

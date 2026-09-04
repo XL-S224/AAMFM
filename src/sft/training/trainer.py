@@ -998,10 +998,4 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
 
 if __name__ == "__main__":
-    # """
-    # fork shared environment
-    # can not fork the original cuda environment handle
-    # need to use spawn to re-initialize the environment
-    # """
-
     main()

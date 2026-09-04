@@ -266,7 +266,7 @@ from esm.utils.sampling import (
 from esm.utils.structure.affine3d import (
     build_affine3d_from_coordinates,
 )
-from .generation_sub import (
+from .generation import (
     _batch_forward,
     _sample_per_prompt,
     _slice_tensor_dataclass,

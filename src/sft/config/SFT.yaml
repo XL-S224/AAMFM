@@ -2,7 +2,6 @@ common:
     seed: 42
 
 data:
-    dataset: sabdab_imgt
     max_length: 1024
     summary_path: datasets/SFT/summary/sabdab_summary_all.tsv
     imgt_dir: datasets/SFT/imgt
